@@ -1,7 +1,6 @@
 package hubclient
 
 import (
-	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	log "github.com/sirupsen/logrus"
@@ -27,13 +26,8 @@ func NewWithApiToken(baseURL string, apiToken string, debugFlags HubClientDebug,
 
 	req.Header.Add(HeaderNameAuthorization, tokenValue)
 
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	}
-
 	client := &http.Client{
-		Transport: tr,
-		Timeout:   timeout,
+		Timeout: timeout,
 	}
 
 	resp, err := client.Do(req)
