@@ -31,6 +31,12 @@ type HubResponseError struct {
 	ErrorCode    string                   `json:"errorCode"`
 }
 
+type InvalidResponseError struct {
+	errors.Err
+	MessageBody  []byte
+	ResponseType string
+}
+
 type HubResponseErrorArgument struct {
 	FieldName    string `json:"fieldname"`
 	Type         string `json:"type"`
