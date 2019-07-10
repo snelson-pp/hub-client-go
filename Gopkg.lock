@@ -2,12 +2,12 @@
 
 
 [[projects]]
-  branch = "master"
+  branch = "jsontypecheck"
   digest = "1:d59a530f226cd8c264b3ef9367861aa367106869c8171a9617b430b02a588c60"
   name = "github.com/blackducksoftware/hub-client-go"
   packages = ["hubapi"]
   pruneopts = "UT"
-  revision = "30b838e15199141927149437d8d994ae7823c3b9"
+  revision = "e0bca5f66c610265b6144f63035818d945e899f3"
   source = "github.com/snelson-pp/hub-client-go"
 
 [[projects]]

@@ -31,7 +31,7 @@
 
 [[constraint]]
    name = "github.com/blackducksoftware/hub-client-go"
-   branch = "master"
+   branch = "jsontypecheck"
    source = "github.com/snelson-pp/hub-client-go"
 
 [prune]
