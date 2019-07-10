@@ -155,8 +155,6 @@ func (c *Client) processResponse(resp *http.Response, result interface{}, expect
 
 func (c *Client) HttpGetJSON(url string, result interface{}, expectedStatusCode int) error {
 
-	// TODO: Content type?
-
 	var resp *http.Response
 
 	if c.debugFlags&HubClientDebugTimings != 0 {
@@ -174,6 +172,11 @@ func (c *Client) HttpGetJSON(url string, result interface{}, expectedStatusCode 
 	if resp, err = c.httpClient.Do(req); err != nil {
 		body := readResponseBody(resp)
 		return newHubClientError(body, resp, fmt.Sprintf("error getting HTTP Response from %s: %+v", url, err))
+	}
+
+	if contentType := resp.Header.Get("Content-Type"); contentType != "application/json" {
+		body := readResponseBody(resp)
+		return newHubClientError(body, resp, fmt.Sprintf("content type of %q is %q, expected %q", url, contentType, "application/json"))
 	}
 
 	httpElapsed := time.Since(httpStart)

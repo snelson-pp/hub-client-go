@@ -2,6 +2,15 @@
 
 
 [[projects]]
+  branch = "master"
+  digest = "1:d59a530f226cd8c264b3ef9367861aa367106869c8171a9617b430b02a588c60"
+  name = "github.com/blackducksoftware/hub-client-go"
+  packages = ["hubapi"]
+  pruneopts = "UT"
+  revision = "30b838e15199141927149437d8d994ae7823c3b9"
+  source = "github.com/snelson-pp/hub-client-go"
+
+[[projects]]
   digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
   name = "github.com/davecgh/go-spew"
   packages = ["spew"]
@@ -78,6 +87,7 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/blackducksoftware/hub-client-go/hubapi",
     "github.com/h2non/gock",
     "github.com/juju/errors",
     "github.com/sirupsen/logrus",
