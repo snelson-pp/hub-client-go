@@ -35,6 +35,8 @@ const (
 	HubClientDebugContent
 )
 
+const JsonContentType = "application/json"
+
 // Client will need to support CSRF tokens for session-based auth for Hub 4.1.x (or was it 4.0?)
 type Client struct {
 	httpClient    *http.Client
@@ -174,9 +176,9 @@ func (c *Client) HttpGetJSON(url string, result interface{}, expectedStatusCode 
 		return newHubClientError(body, resp, fmt.Sprintf("error getting HTTP Response from %s: %+v", url, err))
 	}
 
-	if contentType := resp.Header.Get("Content-Type"); contentType != "application/json" {
+	if contentType := resp.Header.Get("Content-Type"); contentType != JsonContentType {
 		body := readResponseBody(resp)
-		return newHubClientError(body, resp, fmt.Sprintf("content type of %q is %q, expected %q", url, contentType, "application/json"))
+		return newHubClientError(body, resp, fmt.Sprintf("content type of %q is %q, expected %q", url, contentType, JsonContentType))
 	}
 
 	httpElapsed := time.Since(httpStart)
@@ -382,7 +384,7 @@ func newHubClientError(respBody []byte, resp *http.Response, message string) *Hu
 
 	// Do not try to read the body of the response
 	hce := &HubClientError{errors.NewErr(message), resp.StatusCode, hre}
-	if len(respBody) > 0 {
+	if len(respBody) > 0 && resp.Header.Get("Content-Type") == JsonContentType {
 		if err := json.Unmarshal(respBody, &hre); err != nil {
 			hce = AnnotateHubClientError(hce, fmt.Sprintf("error unmarshaling HTTP response body: %+v", err)).(*HubClientError)
 		}
