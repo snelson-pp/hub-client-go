@@ -15,6 +15,7 @@
 package hubclient
 
 import (
+	"fmt"
 	"github.com/juju/errors"
 )
 
@@ -42,6 +43,10 @@ type HubResponseErrorArgument struct {
 	Type         string `json:"type"`
 	Message      string `json:"message"`
 	InvalidValue string `json:"invalidValue"`
+}
+
+func (e *InvalidResponseError) Error() string {
+	return fmt.Sprintf("invalid response: content type %q, messagebody %q", e.ResponseType, e.MessageBody)
 }
 
 func AnnotateHubClientError(old error, format string) error {
